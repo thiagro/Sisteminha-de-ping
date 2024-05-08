@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ping Status</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div>
+  <label>Impressora da recepção:</label>
+  <label id="recep"></label>
+  </div>
+  <div>
+  <label>Impressora da Holding:</label>
+  <label id="holding"></label>  
+  <%# <div id="pingResult"></div> %>
+  </div>
+  <script>
+    $(document).ready(function() {
+      function ping_holding() {
+        $.getJSON('/ping/192.168.19.42', function(data) {
+          $('#holding').text(data.result);
+        });
+      }
+      function ping_recep() {
+        $.getJSON('/ping/192.168.19.43', function(data) {
+          $('#recep').text(data.result);
+        });
+      }
+      
+      // Atualize o resultado do ping a cada segundo
+      setInterval(ping_holding, 1000);
+      setInterval(ping_recep,1000);
+    });
+  </script>
+</body>
+</html>
+
